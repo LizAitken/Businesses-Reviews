@@ -1,0 +1,27 @@
+<head>
+    <meta charset="utf-8">
+    <title>${title}</title>
+    <meta name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../stylesheets.css">
+    <link href="https://fonts.googleapis.com/css?family=Rammetto+One|Indie+Flower|Kodchasan&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>${title}</h1>
+    <div class="nav">
+        <a class="navbar-item" href='/'>Home</a>
+    </div>
+    ${!!is_logged_in ? `
+        <div class="other">
+            <a class="nav-item" href= '/users/logout'>Logout</a>
+        </div>
+    ` : `
+        <div class= "nav-end">
+            <a class="nav-item" href='/users/login'>Login</a>
+        </div>
+    `}
+    <main class="container">${partial}</main>
+    
+</body>
+
+</html>
