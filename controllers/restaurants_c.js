@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const Restaurants = require('../models/m_users');
+const Restaurants = require('../models/m_restaurants');
 
 exports.get = (req, res) => {
     res.render('template', { 
