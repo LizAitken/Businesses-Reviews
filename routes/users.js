@@ -3,6 +3,7 @@ const express = require('express'),
    router = express.Router();
 
 const User = require('../models/m_users');
+const UsersControllers = require('../controllers/users_c');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -30,17 +31,8 @@ router.get('/login', (req, res) => {
 });
 
 
-router.get('/signup', function(req, res, next) {
-  res.render('template', { 
-    locals: {
-      title: 'Sign Up Page',
-      is_logged_in: req.session.is_logged_in
-    },
-    partials: {
-      partial: 'partial-signupform'
-    }
-  });
-});
+router.get('/signup', UsersControllers.signup_get);
+
 
 router.get('/logout', (req, res) => {
   req.session.destroy();
