@@ -1,5 +1,4 @@
-const db = require('./conn'),
-    bcrypt = require('bcryptjs');
+const db = require('./conn');
 
 class User {
     constructor(id, first_name, last_name, email, password) {
@@ -9,10 +8,6 @@ class User {
         this.email = email;
         this.password = password;
     }
-
-    async checkPassword(hashedPassword) {
-        return bcrypt.compareSync(this.password, hashedPassword);
-    };
 
     async save() {
         try {
@@ -29,24 +24,12 @@ class User {
         }
     }
 
-    async login() {
+    async getUserByEmail() {
         try {
-            const response = await db.one(`
+            const userData = await db.one(`
                 SELECT id, first_name, last_name, password FROM userstb WHERE email = $1`, [this.email] 
             );
-            const isValid = await this.checkPassword(response.password);
-            console.log("hash is", response.password);
-            console.log("Is valid?", isValid);
-            //The !! means it is absolutely 'true' as opposed to leaving it out, which would respond to everything truthy
-            if (!!isValid) {
-                const { first_name, last_name, id } = response;
-                
-                return { isValid, first_name, last_name, user_id:id }
-
-            } else {
-                //just return false isValid
-                return { isValid }
-            };
+            return userData;
         } catch(err) {
             return err.message;
         }

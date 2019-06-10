@@ -1,4 +1,4 @@
-const db = require('./connect.js');
+const db = require('./conn.js');
 
 class Restaurants {
     constructor(id, name, address, city, state, menu){
